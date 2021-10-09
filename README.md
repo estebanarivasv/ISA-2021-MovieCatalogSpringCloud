@@ -1,1 +1,1 @@
-# EmbdSpringCloud
+# MovieCatalogSpringCloud
