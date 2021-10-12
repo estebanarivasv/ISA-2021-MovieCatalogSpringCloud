@@ -1,8 +1,11 @@
-package com.erivas.ratingservice.models;
+package com.erivas.moviecatalogservice.models;
 
 public class RatingModel {
     private Integer movieId;
     private Double rating;
+
+    // Empty constructor that parses the request in the controller to an object
+    public RatingModel() {}
 
     public RatingModel(Integer movieId, Double rating) {
         this.movieId = movieId;

@@ -1,8 +1,12 @@
-package com.erivas.movieservice.models;
+package com.erivas.moviecatalogservice.models;
 
 public class MovieModel {
     private Integer id;
     private String name;
+
+    // Empty constructor that parses the request in the controller to an object
+    public MovieModel() {
+    }
 
     public MovieModel(Integer id, String name) {
         this.id = id;

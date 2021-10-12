@@ -3,9 +3,12 @@ package com.erivas.moviecatalogservice.models;
 public class CatalogModel {
     private String title;
     private String description;
-    private int rating;
+    private Double rating;
 
-    public CatalogModel(String title, String description, int rating) {
+    public CatalogModel() {
+    }
+
+    public CatalogModel(String title, String description, Double rating) {
         this.title = title;
         this.description = description;
         this.rating = rating;
@@ -27,11 +30,11 @@ public class CatalogModel {
         this.description = description;
     }
 
-    public int getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }
