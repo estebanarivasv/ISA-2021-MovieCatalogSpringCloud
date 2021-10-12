@@ -1,19 +1,19 @@
 package com.erivas.ratingservice.models;
 
 public class RatingModel {
-    private Long movieId;
+    private Integer movieId;
     private Double rating;
 
-    public RatingModel(Long movieId, Double rating) {
+    public RatingModel(Integer movieId, Double rating) {
         this.movieId = movieId;
         this.rating = rating;
     }
 
-    public Long getMovieId() {
+    public Integer getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Long movieId) {
+    public void setMovieId(Integer movieId) {
         this.movieId = movieId;
     }
 

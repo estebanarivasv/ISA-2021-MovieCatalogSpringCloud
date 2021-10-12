@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RatingController {
 
     @RequestMapping("/{movieId}")
-    public RatingModel getRating(@PathVariable Long movieId) {
+    public RatingModel getRating(@PathVariable Integer movieId) {
         return new RatingModel(movieId, 5.6);
     }
 }
