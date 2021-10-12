@@ -5,6 +5,9 @@ public class CatalogModel {
     private String description;
     private Double rating;
 
+    public CatalogModel() {
+    }
+
     public CatalogModel(String title, String description, Double rating) {
         this.title = title;
         this.description = description;
