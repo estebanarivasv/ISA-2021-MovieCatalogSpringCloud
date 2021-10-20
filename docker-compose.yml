@@ -1,0 +1,65 @@
+version: '3.3'
+services:    
+    discovery-server:
+        container_name: eureka-server
+        image: discovery-server:v0.1
+        build:
+          context: .
+          args: 
+            JAR_FILE: discovery-server-0.0.1-SNAPSHOT
+            PARENT_FOLDER: discovery-server
+            WAIT_TIME: 0
+        ports:
+            - "8761:8761"
+    movie-catalog-service:
+        container_name: catalog-microservice
+        image: movie-catalog-service:v0.1
+        build:
+          context: .
+          args: 
+            JAR_FILE: movie-catalog-service-0.0.1-SNAPSHOT
+            PARENT_FOLDER: movie-catalog-service
+            WAIT_TIME: 20
+        environment:
+          - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+        ports:
+            - "8081:8081"
+        depends_on:
+          - movie-service
+          - rating-service
+        links:
+          - discovery-server
+    movie-service:
+        container_name: movie-microservice
+        image: movie-service:v0.1
+        build:
+          context: .
+          args: 
+            JAR_FILE: movie-service-0.0.1-SNAPSHOT
+            PARENT_FOLDER: movie-service
+            WAIT_TIME: 20
+        environment:
+          - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+        ports:
+            - "8082:8082"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server
+    rating-service:
+        container_name: rating-microservice
+        image: rating-service:v0.1
+        build:
+          context: .
+          args: 
+            JAR_FILE: rating-service-0.0.1-SNAPSHOT
+            PARENT_FOLDER: rating-service
+            WAIT_TIME: 20
+        environment:
+          - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka/
+        ports:
+            - "8083:8083"
+        depends_on:
+          - discovery-server
+        links:
+          - discovery-server
