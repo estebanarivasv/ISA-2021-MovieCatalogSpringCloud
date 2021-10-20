@@ -23,7 +23,7 @@ public class MovieCatalogController {
         // Get all ratings data by userId from Ratings Microservice
         UserRatingsModel ratings = restTemplate
                 .getForObject(
-                        "http://localhost:8083/ratings/users/" + userId,
+                        "http://rating-service/ratings/users/" + userId,
                         UserRatingsModel.class
                 );
 
@@ -34,7 +34,7 @@ public class MovieCatalogController {
                 .map(ratingModel -> {
                     // Get movie data from Movie Microservice
                     MovieModel movieModel = restTemplate.getForObject(
-                            "http://localhost:8082/movies/" + ratingModel.getMovieId(),
+                            "http://movie-service/movies/" + ratingModel.getMovieId(),
                             MovieModel.class);
                     assert movieModel != null;
                     return new CatalogModel(movieModel.getName(), "Short movie", ratingModel.getRating());
