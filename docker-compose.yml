@@ -11,6 +11,8 @@ services:
             WAIT_TIME: 0
         ports:
             - "8761:8761"
+        networks:
+          - proxy
     movie-catalog-service:
         container_name: catalog-microservice
         image: movie-catalog-service:v0.1
@@ -29,6 +31,13 @@ services:
           - rating-service
         links:
           - discovery-server
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.movie-catalog-service.rule=Host(`catalog.docker.localhost`)"
+          - "traefik.http.routers.movie-catalog-service.tls=true"
+          - "traefik.http.services.movie-catalog-service.loadbalancer.server.port=8081"
+        networks:
+          - proxy
     movie-service:
         container_name: movie-microservice
         image: movie-service:v0.1
@@ -46,6 +55,8 @@ services:
           - discovery-server
         links:
           - discovery-server
+        networks:
+          - proxy
     rating-service:
         container_name: rating-microservice
         image: rating-service:v0.1
@@ -63,3 +74,9 @@ services:
           - discovery-server
         links:
           - discovery-server
+        networks:
+          - proxy
+
+networks:
+  proxy:
+    external: true
