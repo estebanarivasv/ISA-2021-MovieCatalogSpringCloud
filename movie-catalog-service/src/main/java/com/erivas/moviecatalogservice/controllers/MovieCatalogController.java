@@ -1,6 +1,8 @@
 package com.erivas.moviecatalogservice.controllers;
 
+import com.erivas.moviecatalogservice.client.ClientRatingService;
 import com.erivas.moviecatalogservice.models.*;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +19,23 @@ public class MovieCatalogController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private ClientRatingService clientRatingService;
+
     @RequestMapping("/{userId}")
     public UserCatalogModel getMoviesCatalog(@PathVariable Integer userId) {
 
         // Get all ratings data by userId from Ratings Microservice
+
+        UserRatingsModel ratings = clientRatingService.getUserRatings(userId);
+
+        /*
         UserRatingsModel ratings = restTemplate
                 .getForObject(
                         "http://rating-service/ratings/users/" + userId,
                         UserRatingsModel.class
                 );
+         */
 
         // For each movie, we get its data.
         assert ratings != null;
