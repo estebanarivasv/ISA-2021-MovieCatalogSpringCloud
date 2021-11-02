@@ -38,6 +38,8 @@ services:
           - "traefik.http.services.movie-catalog-service.loadbalancer.server.port=8081"
         networks:
           - proxy
+        environment:
+          - JAVA_OPTS="-Xmx256m -Xms256m"
     movie-service:
         container_name: movie-microservice
         image: movie-service:v0.1

@@ -2,12 +2,14 @@ package com.erivas.moviecatalogservice.controllers;
 
 import com.erivas.moviecatalogservice.client.ClientRatingService;
 import com.erivas.moviecatalogservice.models.*;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +24,13 @@ public class MovieCatalogController {
     @Autowired
     private ClientRatingService clientRatingService;
 
+    private static final Logger logger = LoggerFactory.getLogger(MovieCatalogController.class);
+
     @RequestMapping("/{userId}")
     public UserCatalogModel getMoviesCatalog(@PathVariable Integer userId) {
 
         // Get all ratings data by userId from Ratings Microservice
-
+        logger.info("User ID: " + userId);
         UserRatingsModel ratings = clientRatingService.getUserRatings(userId);
 
         /*
