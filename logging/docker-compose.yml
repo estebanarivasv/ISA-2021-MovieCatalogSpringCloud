@@ -1,0 +1,57 @@
+version: "3.3"
+services:
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.14.2
+        environment:
+          - ELASTICSEARCH_USERNAME=elastic
+          - ELASTIC_PASSWORD=1234
+          - "discovery.type=single-node"
+        ports:
+          - "9200:9200"
+          - "9300:9300"
+        volumes:
+          - ./elasticsearch/_config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+          - ./elasticsearch/_data:/usr/share/elasticsearch/data:rw
+        networks:
+          - proxy
+    logstash:
+        image: docker.elastic.co/logstash/logstash:7.14.2
+        ports:
+          - "5044:5044"
+          - "5000:5000/tcp"
+          - "5000:5000/udp"
+          - "9600:9600"
+        volumes:
+          - ./logstash/_config/logstash.yml:/usr/share/logstash/config/logstash.yml
+          - ./logstash/_pipeline:/usr/share/logstash/pipeline
+        depends_on:
+          - elasticsearch
+        networks:
+          - proxy
+    filebeat:
+        image: docker.elastic.co/beats/filebeat:7.14.2
+        command: filebeat -e -strict.perms=false
+        volumes:
+          - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:rw
+          - /var/lib/docker/containers:/var/lib/docker/containers:ro           
+          - /var/run/docker.sock:/var/run/docker.sock:ro                       
+          - ./filebeat/_data:/usr/share/filebeat/data:rw                       
+          - /var/log/:/var/log/:ro
+        user: root
+        depends_on:
+          - logstash
+        networks:
+          - proxy
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.14.2
+        volumes:
+          - ./kibana/_config/kibana.yml:/usr/share/kibana/config/kibana.yml
+        ports:
+          - "5601:5601"
+        depends_on:
+          - elasticsearch
+        networks:
+          - proxy
+networks:
+    proxy:
+        external: true
