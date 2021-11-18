@@ -12,3 +12,15 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['movie-catalog-service:8081']
+
+  - job_name: 'movie-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['movie-service:8082']
+
+  - job_name: 'rating-service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['rating-service:8083']
