@@ -1,8 +1,8 @@
-version: '3.3'
+version: '3.9'
 services:    
     discovery-server:
         container_name: eureka-server
-        image: discovery-server:v0.1
+        image: discovery-server:v0.4
         build:
           context: .
           args: 
@@ -11,9 +11,19 @@ services:
             WAIT_TIME: 0
         ports:
             - "8761:8761"
+        networks:
+          - proxy
+        labels:
+            collect_logs_with_filebeat: "true"
+            decode_log_event_to_json_object: "true"
+        deploy:
+          resources:
+            limits:
+              cpus: '2'
+              memory: 384M
     movie-catalog-service:
         container_name: catalog-microservice
-        image: movie-catalog-service:v0.1
+        image: movie-catalog-service:v0.4
         build:
           context: .
           args: 
@@ -29,9 +39,20 @@ services:
           - rating-service
         links:
           - discovery-server
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.movie-catalog-service.rule=Host(`catalog.docker.localhost`)"
+          - "traefik.http.routers.movie-catalog-service.tls=true"
+          - "traefik.http.services.movie-catalog-service.loadbalancer.server.port=8081"
+          - "collect_logs_with_filebeat=true"
+          - "decode_log_event_to_json_object=true"
+        networks:
+          - proxy
+        environment:
+          - "JAVA_OPTS=-Xmx256m -Xms256m"
     movie-service:
         container_name: movie-microservice
-        image: movie-service:v0.1
+        image: movie-service:v0.4
         build:
           context: .
           args: 
@@ -46,9 +67,14 @@ services:
           - discovery-server
         links:
           - discovery-server
+        networks:
+          - proxy
+        labels:
+            collect_logs_with_filebeat: "true"
+            decode_log_event_to_json_object: "true"
     rating-service:
         container_name: rating-microservice
-        image: rating-service:v0.1
+        image: rating-service:v0.4
         build:
           context: .
           args: 
@@ -63,3 +89,12 @@ services:
           - discovery-server
         links:
           - discovery-server
+        networks:
+          - proxy
+        labels:
+            collect_logs_with_filebeat: "true"
+            decode_log_event_to_json_object: "true"
+
+networks:
+  proxy:
+    external: true
