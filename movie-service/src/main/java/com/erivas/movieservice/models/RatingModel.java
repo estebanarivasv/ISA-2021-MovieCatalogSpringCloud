@@ -6,20 +6,23 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table
-public class MovieModel implements Serializable {
+public class RatingModel implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
-    private String title;
+    private Double rating;
+    private String description;
+    private Long userId;
 
-    @OneToMany(mappedBy="movie")
-    private List<RatingModel> ratings;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="movie_id")
+    private MovieModel movie;
 }
