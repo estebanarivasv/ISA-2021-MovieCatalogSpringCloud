@@ -2,15 +2,14 @@ package com.erivas.moviecatalogservice.models;
 
 public class MovieModel {
     private Integer id;
-    private String name;
+    private String title;
 
-    // Empty constructor that parses the request in the controller to an object
     public MovieModel() {
     }
 
-    public MovieModel(Integer id, String name) {
+    public MovieModel(Integer id, String title) {
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
     public Integer getId() {
@@ -21,11 +20,12 @@ public class MovieModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
+
 }

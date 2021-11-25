@@ -6,6 +6,13 @@ public class UserRatingsModel {
 
     private List<RatingModel> userRatings;
 
+    public UserRatingsModel() {
+    }
+
+    public UserRatingsModel(List<RatingModel> userRatings) {
+        this.userRatings = userRatings;
+    }
+
     public List<RatingModel> getUserRatings() {
         return userRatings;
     }

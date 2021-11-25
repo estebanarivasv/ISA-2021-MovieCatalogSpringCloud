@@ -1,25 +1,32 @@
 package com.erivas.moviecatalogservice.models;
 
 public class CatalogModel {
-    private String title;
-    private String description;
+    private String movie;
     private Double rating;
+    private String description;
+    private Long userId;
 
-    public CatalogModel() {
-    }
-
-    public CatalogModel(String title, String description, Double rating) {
-        this.title = title;
-        this.description = description;
+    public CatalogModel(String movie, Double rating, String description, Long userId) {
+        this.movie = movie;
         this.rating = rating;
+        this.description = description;
+        this.userId = userId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMovie() {
+        return movie;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {
@@ -30,11 +37,12 @@ public class CatalogModel {
         this.description = description;
     }
 
-    public Double getRating() {
-        return rating;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
+
 }
