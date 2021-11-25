@@ -16,6 +16,4 @@ USER app
 
 ADD ${PARENT_FOLDER}/target/${JAR_FILE}.jar app.jar
 
-RUN sleep ${WAIT_TIME}
- 
 ENTRYPOINT [ "sh", "-c", "java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar app.jar {0} {@}" ]
