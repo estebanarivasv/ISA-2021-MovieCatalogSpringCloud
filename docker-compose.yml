@@ -113,6 +113,7 @@ services:
           - proxy
         labels:
             collect_logs_with_filebeat: "true"
+            decode_log_event_to_json_object: "true"
       
 networks:
   proxy:
