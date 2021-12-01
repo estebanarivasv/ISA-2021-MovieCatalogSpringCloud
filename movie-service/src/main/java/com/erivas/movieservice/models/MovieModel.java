@@ -1,27 +1,25 @@
 package com.erivas.movieservice.models;
 
-public class MovieModel {
-    private Integer id;
-    private String name;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    public MovieModel(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
-    public Integer getId() {
-        return id;
-    }
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table
+public class MovieModel implements Serializable {
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String title;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy="movie")
+    private List<RatingModel> ratings;
 }

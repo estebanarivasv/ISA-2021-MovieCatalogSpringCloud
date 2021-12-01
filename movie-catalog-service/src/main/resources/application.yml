@@ -13,9 +13,25 @@ spring:
         max-interval: 1000
 
 eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
   client:
+    region: default
+    availability-zones:
+      default: default-zone
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      registerWithEureka: true
+      fetchRegistry: true
+      registryFetchIntervalSeconds: 5
+      defaultZone: http://discovery-server:8761/eureka/
+
+feign:
+  client:
+    config:
+      connectTimeout: 5000
+      readTimeout: 5000
+      loggerLevel: basic
 
 management:
   endpoint:

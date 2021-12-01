@@ -11,6 +11,16 @@ spring:
         multiplier: 1.5
         max-attempts: 10000
         max-interval: 1000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/catalog
+    username: root
+    password: 1234
 
 eureka:
   client:

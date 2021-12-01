@@ -1,4 +1,4 @@
-package com.erivas.ratingservice.models;
+package com.erivas.movieservice.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
