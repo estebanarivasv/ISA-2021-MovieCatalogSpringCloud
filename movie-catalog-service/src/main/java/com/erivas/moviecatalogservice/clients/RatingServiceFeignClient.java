@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@FeignClient(name="ratingService", url="http://localhost:8083")
+@FeignClient(name="rating-service", url="http://localhost:8083")
 public interface RatingServiceFeignClient {
 
     @GetMapping("/ratings/users/{userId}")
