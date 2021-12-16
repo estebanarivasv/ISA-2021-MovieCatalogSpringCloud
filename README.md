@@ -29,13 +29,6 @@ Other elements
 - Docker version 20.10.9
 - docker-compose version 1.29.2
 
-## Steps to get the application running
-
-1. `docker network create proxy`
-2. `./mvnw clean install` in `movie-catalog-service`, `movie-service`, `rating-service` and `discovery-server`. 
-    Note: you might have to run `docker-compose up` in root folder to get the db running
-3. Execute `docker-compose up`
-
 ## Useful endpoints
 - movie-catalog-service: `http://localhost:8081/catalog/{userId}`
 - movie-service: `http://localhost:8082/movies/{movieId}`
